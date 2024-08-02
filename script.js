@@ -54,7 +54,34 @@ function displayData(data) {
 
     danhsachTableBody.appendChild(row);
   });
+  addData();
 }
 
+function addData(){
+  const addData = document.querySelector('#add');
+  addData.onclick = function(){
+    const nameFood = document.querySelector('#name-food');
+    const price = document.querySelector('#price');
+    let formData = {
+      'ten-sp': nameFood,
+      'so-tien': price, 
+    };
+    addValue(formData);
+  }
+}
+
+function addValue(data,callback){
+  let options = {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }
+  fetchData(apiUrl,options)
+  .then(function(response){
+    response.json();
+  })
+  .then(callback);
+
+}
 // Call the fetchData function when the page loads
-document.addEventListener('DOMContentLoaded', fetchData);
+// document.addEventListener('DOMContentLoaded', fetchData);
+fetchData();
